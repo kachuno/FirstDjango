@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Please Upload</h1>
+
+<form enctype="multipart/form-data" action="{% url 'YukaSite:post_create' %}" method="post">
+{% csrf_token %}
+{{form.as_p}}
+<input type="submit" value="Upload">
+</form>
+
+{% endblock %}

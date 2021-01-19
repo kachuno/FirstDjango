@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block content %}
+<ul class="dropdwn">
+        <li><u><a href="{% url 'YukaSite:admin_page' %}">料理テーマ・教室管理</a></u>
+          <ul class="dropdwn_menu">
+              <li><a href="{% url 'YukaSite:schedule_create' %}">テーマ　登録</a></li>
+              <li><a href="{% url 'YukaSite:schedule_all' %}">テーマ　一覧</a></li>
+              <li><a href="{% url 'YukaSite:lesson_create' %}">日程　　登録</a></li>
+              <li><a href="{% url 'YukaSite:recipe_upload' %}">レシピ　登録</a></li>
+          </ul>
+      </li>
+      <li><u><a href="{% url 'YukaSite:news_all_admin' %}">お知らせ</a></u>
+          <ul class="dropdwn_menu">
+              <li><a href="{% url 'YukaSite:news_create' %}">お知らせ　登録</a></li>
+              <li><a href="{% url 'YukaSite:news_all_admin' %}">お知らせ　一覧</a></li>
+          </ul>
+      </li>
+      <li><u><a href="{% url 'YukaSite:user_all' %}">ユーザー情報</a></u>
+          <ul class="dropdwn_menu">
+              <li><a href="{% url 'YukaSite:user_all' %}">ユーザー　一覧</a></li>
+            </ul>
+        </li>
+</ul>
+<script type="text/javascript">
+$(function(){
+    $('.dropdwn li').hover(function(){
+        $("ul:not(:animated)", this).slideDown();
+    }, function(){
+        $("ul.dropdwn_menu",this).slideUp();
+    });
+});
+</script>
+<div class="disp-area">
+  <div id="smallArea">
+    <span>料理テーマ・教室管理</span>
+  </div>
+  <div class="status">
+    <h1>削除確認画面</h1>
+    <form method="post">
+        {% csrf_token %}
+        <table border="1">
+          <thead>
+            <tr>
+              <th>タイトル</th>
+              <th>お知らせ概要</th>
+              <th>内容</th>
+              <th>作成日</th>
+            </tr></thead>
+            <tbody>
+            <tr>
+              <td>{{ news.title }}</td>
+              <td>{{ news.message }}</td>
+              <td>{{ news.contents }}</td>
+              <td>{{ news.created_at }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <input type="submit" class="dlt_btn" value="削除する">
+    </form>
+    <a href="{% url 'YukaSite:news_all_admin' %}" class="new_btn">お知らせ一覧に戻る</a>
+  </div>
+</div>
+{% endblock %}

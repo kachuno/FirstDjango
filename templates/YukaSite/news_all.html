@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="contents">
+  <h1>お知らせ一覧</h1>
+  {% for news in data %}
+    <h3><a href="{% url 'YukaSite:news_detail' news_id=news.id %}">{{ news.title }}</a></h3>
+    <p>{{ news.message | linebreaksbr }}</p>
+    <p>{{ news.created_at }}</p>
+    <hr>
+  {% endfor %}
+{% if user.is_superuser %}
+  <a href="{% url 'YukaSite:news_create' %}" class="new_btn">お知らせの新規登録</a>
+{% endif %}</div>
+{% endblock %}
