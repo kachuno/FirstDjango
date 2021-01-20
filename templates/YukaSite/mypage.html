@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="contents">
+    <h1>{{ who.0 }}のMyPage</h1><hr>
+    {% if lessons %}
+    <h3>過去の参加教室一覧</h3>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>開催年月</th>
+          <th>参加日程</th>
+          <th>テーマ</th>
+        </tr></thead>
+        <tbody>
+        {% for lesson in lessons %}
+          <tr>
+            <td>{{ lesson.holdmonth }}</td>
+            <td>{{ lesson.date }}</td>
+            <td>{{ lesson.holdmonth.theme }}</td>
+          </tr>
+        {% endfor %}</tbody>
+    </table>
+    {% else %}
+      <p>{{who.0}}はまだ教室に参加していません</p>
+    {% endif %}
+    <hr>
+    <h3>これまでの教室参加数</h3>
+    {% if lessons %}
+      <h4>{{ lessons|length }}</h4>
+    {% else %}
+      <p>{{who.o}}はまだ教室に参加していません</p>
+    {% endif %}
+    <hr>
+    <h3>タイムライン投稿数</h3>
+    {% if post %}
+      <h4>{{ post|length }}</h4>
+    {% else %}
+      <h4>{{who.0}}の投稿数は0です</h4>
+    {% endif %}
+    <hr>
+    </div>
+{% endblock %}

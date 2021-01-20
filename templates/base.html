@@ -1,0 +1,32 @@
+{% load static %}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'YukaSite/style.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <meta charset="utf-8">
+    <title>YukaLabo 527（京都・料理教室）</title>
+  </head>
+  <body>
+    <div class="title">
+      <a class="out_btn" href="{% url 'YukaSite:logout' %}">ログアウト &#9661;</a>
+      <h1 id="title-logo">YukaLabo 527</h1>
+
+        {% if user.is_superuser %}
+        <a class="btn" href="{% url 'YukaSite:admin_page' %}">管理ページ &#9661;</a>
+        {% endif %}
+        <a class="btn" href="{% url 'YukaSite:index' %}">トップページ &#9661;</a>
+        <a class="btn" href="{% url 'YukaSite:mypage' %}">マイページ &#9661;</a>
+        <a class="btn" href="{% url 'YukaSite:recipe_all' %}">レシピ一覧 &#9661;</a>
+        <a class="btn" href="{% url 'YukaSite:post_all' %}">タイムライン &#9661;</a>
+        <a class="btn" href="{% url 'YukaSite:news_all' %}">お知らせ &#9661;</a>
+        <a class="btn" href="https://yukalabo527.hatenablog.com/">ホームページはこちら &#9661;</a>
+    </div>
+    {% block content %}
+    {% endblock %}
+    <div class = "footer">
+      <div class="footer-logo">YukaLabo 527</div>
+      <div class="footer-list"><p>&copy; 2020 YukaLabo 527</p></div>
+    </div>
+  </body>
+</html>
