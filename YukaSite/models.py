@@ -6,12 +6,9 @@ from django.conf import settings
 
 class Schedule(models.Model):
     """スケジュール"""
-    #summary = models.CharField('テーマ', max_length=50, help_text="○年○月")
-    #description = models.TextField('詳細な説明', blank=True)
     holdmonth = models.CharField('開催年月', max_length=50, help_text="○年○月", default="2021年1月", unique=True)
     theme = models.TextField('テーマ', max_length=50, default="テスト")
     now = models.BooleanField('現在のテーマを選択',default=False)
-    #date = models.DateField('日付')
     members = models.ManyToManyField(User, blank=True)
     created_at = models.DateTimeField('作成日', default=timezone.now)
     picture1 = models.ImageField(upload_to='images/',blank=True)
@@ -35,6 +32,14 @@ class Post(models.Model):
     ##投稿最新順
     class Meta:
         ordering = ('-pub_date',)
+
+class Comment(models.Model):
+    """投稿へのコメント"""
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    post = models.ForeignKey(to=Post, related_name='comments', on_delete=models.CASCADE)
+    def __str__(self):
+        return self.text
 
 class Recipe(models.Model):
     """レシピ"""

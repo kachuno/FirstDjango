@@ -27,6 +27,7 @@ def signup(request):
 ##トップページ
 @login_required
 def index(request):
+    login_user_id = request.user.id
     data = Schedule.objects.all().filter(now=True)
     params = {'message': '教室スケジュール', 'data': data}
     return render(request, 'YukaSite/index.html', params)
@@ -34,9 +35,18 @@ def index(request):
 ##投稿一覧
 @login_required
 def post_all(request):
-    posts = Post.objects.all()
-    params = {'message':'投稿一覧', 'posts': posts}
+    user_me = request.user.id
+    posts = Post.objects.all().order_by('-pub_date')[0:15]
+    params = {'message':'投稿一覧', 'posts': posts,'user_me':user_me}
     return render(request, 'YukaSite/post.html', params)
+
+##投稿一覧（ユーザー用）
+@login_required
+def post_all_user(request):
+    user = request.user.id
+    posts = Post.objects.all().filter(owner=user).order_by('-pub_date')[0:15]
+    params = {'posts':posts,'user':user}
+    return render(request, 'YukaSite/post_all_user.html', params)
 
 ##新規投稿
 @login_required
@@ -58,6 +68,9 @@ def post_create(request):
 @login_required
 def post_detail(request, post_id):
     post = Post.objects.get(id=post_id)
+    if request.method == "POST":
+        models.Comment.objects.create(text=request.POST["text"],post=post)
+
     return render(request, 'YukaSite/post_detail.html', {'post': post})
 
 ##レシピアップロード
@@ -239,8 +252,11 @@ def lesson_create(request):
         form = LessonForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
-            post.owner = request.user
             post.save()
+            ## Lesson と Schedule のメンバーを紐付ける実装（未）
+            #sch = Schedule.objects.get(holdmonth=post.holdmonth)
+            #sch.members.set(post.members.all())
+            #sch.save()
             form.save_m2m()
             return redirect('YukaSite:admin_page')
     else:

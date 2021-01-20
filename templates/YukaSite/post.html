@@ -1,17 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="contents">
-<h2>タイムライン</h2>
-{% for post in posts %}
-<div class='post_contents'>
-  <a href="{% url 'YukaSite:post_detail' post_id=post.id %}">{{ post.title }}</a>
-  <img src='{{ MEDIA_URL }}{{post.picture}}' width=400>
-  <p><a href="{% url 'YukaSite:user_detail' user_id=post.owner.id %}">{{ post.owner }}</a></p>
-  <p>{{ post.content | linebreaksbr  }}</p>
-  <!--<p>{{ post.good_count }}</p>-->
-  <p>{{ post.pub_date }}</p>
+  <h1>タイムライン</h1>
+  <a href="{% url 'YukaSite:post_create' %}" class="new_btn">新規投稿</a>
+  <a href="{% url 'YukaSite:post_all_user' %}" class="new_btn">自分の投稿一覧</a><hr>
+  {% for post in posts %}
+  <div class="post_contents">
+    <div class="post_title">
+      <a href="{% url 'YukaSite:post_detail' post_id=post.id %}" class="post_btn">{{ post.title }}</a>
+    </div>
+    <img src='{{ MEDIA_URL }}{{post.picture}}' width=280>
+    <p><a href="{% url 'YukaSite:user_detail' user_id=post.owner.id %}">{{ post.owner }}</a></p>
+    <p>{{ post.content | linebreaksbr  }}</p>
+    <!--<p>{{ post.good_count }}</p>-->
+    <p>{{ post.pub_date }}</p>
+    <p><a href="{% url 'YukaSite:post_detail' post_id=post.id %}">コメント{{ post.comments.all|length }}件</a></p><hr>
+  </div>
+    {% endfor %}
+    <p>最新の15件まで表示できます</p>
+  <a href="{% url 'YukaSite:post_create' %}" class="new_btn">新規投稿</a>
 </div>
-{% endfor %}
-<h2><a href="{% url 'YukaSite:post_create' %}">Upload more</a></h2>
-</div>
+
 {% endblock %}

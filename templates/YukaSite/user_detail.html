@@ -82,7 +82,6 @@ $(function(){
 </div>
 
 <!--管理者以外の場合の表示-->
-
 {% else %}
   <div class="contents">
     <h1>{{ user.username }}</h1>
@@ -100,7 +99,7 @@ $(function(){
       <h4>{{user.username}}の投稿数は0です</h4>
     {% endif %}
     <hr>
-  {% endif %}
+{% endif %}
   <div class = "footer">
     <div class="footer-logo">YukaLabo 527</div>
     <div class="footer-list"><p>&copy; 2020 YukaLabo 527</p></div>

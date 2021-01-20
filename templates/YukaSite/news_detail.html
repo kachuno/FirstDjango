@@ -5,8 +5,8 @@
   <p>{{ news.message }}</p><hr>
   <p>{{ news.contents | linebreaksbr  }}</p><hr>
   <p>{{ news.created_at }}</p><hr>
+
+
+<a href="{% url 'YukaSite:news_all' %}" class="new_btn">お知らせ一覧ページに戻る</a>
 </div>
-
-<a href="{% url 'YukaSite:news_all' %}">お知らせ一覧ページに戻る</a>
-
 {% endblock %}

@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-import environ # django-environのインポート（これでosモジュールは不要になる）
+import environ
 from pathlib import Path
 import os
 
@@ -126,13 +126,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
-# デフォルトではなく上で作成したカスタムユーザモデルを使う
-#AUTH_USER_MODEL = 'YukaSite.User'
-
-# ログイン後とログアウト後のリダイレクト先を変更
-#LOGIN_REDIRECT_URL = 'home'
-#LOGOUT_REDIRECT_URL = 'home'
 
 # django-allauthを使うための設定
 AUTHENTICATION_BACKENDS = (

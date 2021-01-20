@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Please Upload</h1>
+<div class="contents">
+  <h1>Please Upload</h1>
 
-<form enctype="multipart/form-data" action="{% url 'YukaSite:post_create' %}" method="post">
-{% csrf_token %}
-{{form.as_p}}
-<input type="submit" value="Upload">
-</form>
-
+  <form enctype="multipart/form-data" action="{% url 'YukaSite:post_create' %}" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+  <input type="submit" value="Upload" class="new_btn">
+  </form>
+  <a href="{% url 'YukaSite:post_all' %}" class="new_btn">投稿一覧ページに戻る</a>
+</div>
 {% endblock %}

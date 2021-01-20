@@ -47,7 +47,7 @@ class RecipeForm(forms.ModelForm):
 class ScheduleForm(forms.ModelForm):
     class Meta:
         model = Schedule
-        fields = ['holdmonth','theme','members','picture1','picture2','picture3','now']
+        fields = ['holdmonth','theme','picture1','picture2','picture3','now']
 
 class ScheduleSelectForm(forms.Form):
     choice = forms.ModelChoiceField(models.Schedule.objects.order_by('-holdmonth'), label='開催年月', empty_label='選択してください')
