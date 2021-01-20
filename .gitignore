@@ -11,6 +11,9 @@ db.sqlite3
 #SECRET_KEY用
 .env
 
+.table
+.tables
+
 /**/migrations/*
 !/**/__init__.py
 
