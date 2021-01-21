@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="contents">
+  <h1>タイムライン</h1>
+  <a href="{% url 'MySite:post_create' %}" class="new_btn">新規投稿</a>
+  <a href="{% url 'MySite:post_all' %}" class="new_btn">タイムラインに戻る</a><hr>
+  {% if posts %}
+    {% for post in posts %}
+    <div class="post_contents">
+      <div class="post_title">
+        <a href="{% url 'MySite:post_detail' post_id=post.id %}" class="post_btn">{{ post.title }}</a>
+      </div>
+      <img src='{{ MEDIA_URL }}{{post.picture}}' width=280>
+      <p>{{ post.content | linebreaksbr  }}</p>
+      <!--<p>{{ post.good_count }}</p>-->
+      <p>{{ post.pub_date }}</p><hr>
+      <p>{{ post.owner }}<br>コメント数：{{ post.comments.all|length }}</p><hr>
+    </div>
+    {% endfor %}
+  {% else %}
+    <p>まだ投稿がありません</p>
+    <a href="{% url 'MySite:post_create' %}"><u id='zero'><h3>投稿してみましょう</h3></u></a>
+  {% endif %}
+    <p>最新の15件まで表示できます</p>
+  <a href="{% url 'MySite:post_create' %}" class="new_btn">新規投稿</a>
+</div>
+
+{% endblock %}

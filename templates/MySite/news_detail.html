@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="contents">
+  <h1>{{ news.title }}</h1><hr>
+  <p>{{ news.message }}</p><hr>
+  <p>{{ news.contents | linebreaksbr  }}</p><hr>
+  <p>{{ news.created_at }}</p><hr>
+
+
+<a href="{% url 'MySite:news_all' %}" class="new_btn">お知らせ一覧ページに戻る</a>
+</div>
+{% endblock %}
