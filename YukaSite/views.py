@@ -92,7 +92,7 @@ def recipe_upload(request):
 def recipe_all(request):
     login_user_id = request.user.id
     whose_list = Schedule.objects.filter(members__in=User.objects.filter(id=login_user_id))
-    recipes = Recipe.objects.filter(holdmonth__in=whose_list)
+    recipes = Recipe.objects.filter(holdmonth__in=whose_list).order_by('holdmonth').reverse()
     params = {'id':login_user_id, 'who':whose_list, 'recipes': recipes}
     return render(request, 'YukaSite/recipe_all.html', params)
 
@@ -112,12 +112,12 @@ def mypage(request):
 ##スケジュールの登録
 def schedule_create(request):
     if request.method == "POST":
-        form = ScheduleForm(request.POST)
+        form = ScheduleForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
             post.owner = request.user
             post.save()
-            form.save_m2m()
+            #form.save_m2m()
             #今月のテーマに適用する場合，他のテーマのチェックを外す
             nowor = request.POST.get('now')
             if nowor == 'on':
@@ -158,7 +158,7 @@ def schedule_edit(request, schedule_id):
 ##スケジュールの削除
 def schedule_delete(request, schedule_id):
     obj = Schedule.objects.get(id=schedule_id)
-    forms = ScheduleSelectForm(request.POST)
+    forms = ScheduleSelectForm(request.POST, request.FILES)
     if(request.method == 'POST'):
         obj.delete()
         data = Schedule.objects.all().filter(now=True).last()
@@ -187,7 +187,6 @@ def schedule_select(request):
             else:
                 pass
             data.now = True
-            #msg ='ifに入らない'
             data.save(update_fields=['now'])
             params = {'message': '教室スケジュール', 'data': data, 'lessons': lessons,'recipes':recipes}
             return render(request, 'YukaSite/admin_page.html', params)

@@ -11,7 +11,7 @@ class Schedule(models.Model):
     now = models.BooleanField('現在のテーマを選択',default=False)
     members = models.ManyToManyField(User, blank=True)
     created_at = models.DateTimeField('作成日', default=timezone.now)
-    picture1 = models.ImageField(upload_to='images/',blank=True)
+    picture1 = models.ImageField(upload_to='images/')
     picture2 = models.ImageField(upload_to='images/',blank=True)
     picture3 = models.ImageField(upload_to='images/',blank=True)
 
