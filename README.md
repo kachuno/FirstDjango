@@ -46,6 +46,20 @@ MacOS BigSur 11.1
   - $ python3 manage.py runserver
 
 # デモ画像
+本Webアプリケーションのデモ画像として、主要ページを以下に示します。なお、初めの3つは管理者用のページです。
+- トップページ
+![トップページ](demo_img/Demo_1.png)
+- （管理者）管理用ページ
+![管理用ページ](demo_img/Demo_2.png)
+- （管理者）レシピ一覧ページ
+![レシピ一覧ページ](demo_img/Demo_3.png)
+- （管理者）お知らせ一覧ページ
+![お知らせ一覧ページ](demo_img/Demo_4.png)
+- （一般ユーザー）レシピ一覧ページ
+![レシピ一覧ページ](demo_img/Demo_5.png)
+- タイムライン
+![タイムライン](demo_img/Demo_6.png)
+
 
 # 未実装タスク
 - [ ] DB検索機能
