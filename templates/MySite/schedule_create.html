@@ -37,7 +37,7 @@ $(function(){
   <div class="status">
     <h1>料理教室ー新規登録</h1>
 
-    <form method="post">
+    <form enctype="multipart/form-data" method="post">
       {% csrf_token %}
       {{ form.as_p }}
       <button type="submit" class="new_btn">教室登録</button>

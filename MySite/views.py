@@ -114,10 +114,7 @@ def schedule_create(request):
     if request.method == "POST":
         form = ScheduleForm(request.POST, request.FILES)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.owner = request.user
-            post.save()
-            #form.save_m2m()
+            form.save()
             #今月のテーマに適用する場合，他のテーマのチェックを外す
             nowor = request.POST.get('now')
             if nowor == 'on':
@@ -141,11 +138,9 @@ def schedule_create(request):
 def schedule_edit(request, schedule_id):
     obj = Schedule.objects.get(id=schedule_id)
     if request.method == "POST":
-        form = ScheduleForm(request.POST, instance=obj)
+        form = ScheduleForm(request.POST, request.FILES, instance=obj)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.save()
-            form.save_m2m()
+            form.save()
             data = Schedule.objects.all().order_by('holdmonth').reverse()
             params = {'message': '教室スケジュール', 'data': data}
             return render(request, 'MySite/schedule_all.html',params)
